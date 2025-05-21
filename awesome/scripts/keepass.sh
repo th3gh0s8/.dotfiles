@@ -1,1 +1,0 @@
-QT_STYLE_OVERRIDE=kvantum QT_SCALE_FACTOR=1.05 keepassxc

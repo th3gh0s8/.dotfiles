@@ -150,6 +150,9 @@ button:hover {
     border-bottom: 2px solid @lavender;
 }
 #bluetooth {
-    color: @lavender;
-    border-bottom: 2px solid @lavender;
+    color: @blue;
+    border-bottom: 2px solid @blue;
+}
+#custom-arch {
+    color: @blue;
 }
