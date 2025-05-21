@@ -4,12 +4,21 @@ Welcome to the **nvim** branch of my `.dotfiles` repository! This branch contain
 
 ## Contents
 
-- `init.lua` or `init.vim`: Main Neovim configuration file
-- `lua/` or `autoload/`: Custom Lua modules or Vimscript
-- `plugin/`: Plugin settings and configuration
-- `after/`: Post-load configuration tweaks
-- `snippets/`: Code snippets for various languages
-- `scripts/`: Helper scripts for Neovim tasks
+- `init.lua`  
+  Main entry point for Neovim configuration.
+- `lazy-lock.json`  
+  Lockfile for [lazy.nvim](https://github.com/folke/lazy.nvim) plugin manager.
+- `lua/th3gh0s8/init.lua`  
+  Loads core Lua configuration for Neovim.
+- `lua/th3gh0s8/lazy/`  
+  Individual plugin configuration files for plugins managed by lazy.nvim (e.g., `lsp.lua`, `telescope.lua`, `treesitter.lua`, etc.).
+- `lua/th3gh0s8/lazy_init.lua`  
+  Initialization for lazy.nvim and plugin setup.
+- `lua/th3gh0s8/remap.lua`  
+  Custom key mappings.
+- `lua/th3gh0s8/set.lua`  
+  Editor options and settings.
+
 
 ## Features
 
@@ -37,7 +46,7 @@ Welcome to the **nvim** branch of my `.dotfiles` repository! This branch contain
    ```sh
    git clone https://github.com/folke/lazy.nvim.git ~/.local/share/nvim/lazy/lazy.nvim
    ```
-   (You can also follow the latest instructions from the [lazy.nvim GitHub page](https://github.com/folke/lazy.nvim) if this changes.)
+   _(See the [lazy.nvim GitHub page](https://github.com/folke/lazy.nvim) for up-to-date installation steps.)_
 
 4. **Install plugins:**
    - Launch Neovim and plugins will be installed automatically by lazy.nvim, or run `:Lazy sync` inside Neovim.
