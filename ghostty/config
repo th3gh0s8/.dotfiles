@@ -46,7 +46,7 @@ theme = catppuccin-mocha
 # font-family = Meslo LGS Nerd Font Mono
 # font-family = CaskaydiaMono Nerd Font
 font-family = CaskaydiaCove Nerd Font
-font-size = 11
+font-size = 9
 # background-opacity = 0.95
 gtk-titlebar = true
 # custom-shader = /home/chris/bloom.glsl
@@ -64,3 +64,13 @@ keybind = ctrl+alt+h=goto_split:left
 keybind = ctrl+alt+j=goto_split:down
 keybind = ctrl+alt+k=goto_split:up
 keybind = ctrl+alt+l=goto_split:right
+
+
+keybind = alt+k=scroll_page_up
+keybind = alt+j=scroll_page_down
+
+keybind = alt+up=scroll_page_up
+keybind = alt+down=scroll_page_down
+
+background-opacity = 0.85
+

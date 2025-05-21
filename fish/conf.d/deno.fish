@@ -1,0 +1,1 @@
+source "/home/gh0s8/.deno/env.fish"
