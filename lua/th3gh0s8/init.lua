@@ -1,6 +1,6 @@
-require("theprimeagen.set")
-require("theprimeagen.remap")
-require("theprimeagen.lazy_init")
+require("th3gh0s8.set")
+require("th3gh0s8.remap")
+require("th3gh0s8.lazy_init")
 
 -- DO.not
 -- DO NOT INCLUDE THIS
@@ -66,3 +66,7 @@ autocmd('LspAttach', {
 vim.g.netrw_banner = 0
 vim.g.netrw_winsize = 25
 vim.g.netrw_browse_split = 0
+
+vim.opt.compatible = false           -- Equivalent to 'set nocompatible'
+vim.cmd("filetype plugin on")        -- Enable filetype plugins
+vim.cmd("syntax on")                 -- Enable syntax highlighting

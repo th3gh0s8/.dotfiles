@@ -1,6 +1,5 @@
 return {
     "nvim-neo-tree/neo-tree.nvim",
-    enabled = false, -- 🔥 This disables Neo-tree entirely
     branch = "v3.x",
     lazy = true,     -- do not load on startup
     cmd = "Neotree", -- allow manual :Neotree usage
@@ -8,7 +7,6 @@ return {
         {
             "<leader><Tab>",
             function()
-                -- this loads the plugin and toggles the file tree
                 require("neo-tree.command").execute({ toggle = true })
             end,
             desc = "Toggle Neo-tree",
@@ -18,11 +16,18 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
         "MunifTanjim/nui.nvim",
-        -- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+        "3rd/image.nvim",              -- Optional image support in preview window: See `# Preview Mode` for more information
     },
     config = function()
-        -- vim.api.nvim_set_keymap('n', '<leader><Tab>', ':Neotree toggle<CR>', { noremap = true, silent = true })
+        require("neo-tree").setup({
+            filesystem = {
+                hijack_netrw_behavior = "disabled", -- <--- This disables auto-opening and netrw hijack
+                --[[ visible = true,                     -- Show hidden files by default
+                show_hidden_count = true,           -- Show count of hidden files
+                hide_dotfiles = false,              -- Do not hide dotfiles (files starting with .)
+                hide_gitignored = false,            -- Do not hide gitignored files (optional) ]]
 
-        require("neo-tree").setup({})
+            }
+        })
     end
 }
