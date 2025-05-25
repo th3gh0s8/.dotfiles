@@ -15,7 +15,7 @@ return {
         "rafamadriz/friendly-snippets", -- useful snippets
         "onsails/lspkind.nvim",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        { "folke/neodev.nvim",                   opts = {} }, -- vs-code like pictograms
+        -- { "folke/neodev.nvim",                   opts = {} }, -- vs-code like pictograms
     },
 
     config = function()
