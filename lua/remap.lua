@@ -30,8 +30,8 @@ vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hol
 -- This is going to get me cancelled
 vim.keymap.set("i", "<C-c>", "<Esc>", { desc = "Exits Insert mode to Normal mode" })
 
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+vim.keymap.set("n", "Q", "<nop>", { desc = "Disable Ex mode" })
+vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "Open tmux-sessionizer in new tmux window" })
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format, { desc = "Format the current buffer" })
 
 vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next quickfix entry" })

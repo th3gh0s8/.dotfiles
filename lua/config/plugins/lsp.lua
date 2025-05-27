@@ -92,7 +92,7 @@ return {
                     }
                 end,
 
-                  -- Java language server handler (jdtls)
+                -- Java language server handler (jdtls)
                 jdtls = function()
                     lspconfig.jdtls.setup({
                         root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),

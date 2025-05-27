@@ -1,20 +1,18 @@
 return {
     "nvim-telescope/telescope.nvim",
-
-    tag = "0.1.5",
-
+    version = '0.1.8',
     dependencies = {
         "nvim-lua/plenary.nvim",
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
+        "folke/which-key.nvim",  -- Make sure which-key is installed
     },
-
     config = function()
         local telescope = require("telescope")
         local actions = require("telescope.actions")
 
-        require('telescope').setup({
+        telescope.setup({
             defaults = {
                 path_display = { "smart" },
                 mappings = {
@@ -27,21 +25,47 @@ return {
             },
         })
         telescope.load_extension("fzf")
+        telescope.load_extension("todo-comments")
+
         local builtin = require('telescope.builtin')
-        vim.keymap.set('n', '<leader>pf', builtin.find_files, {})
-        vim.keymap.set('n', '<C-p>', builtin.git_files, {})
+        -- local wk = require("which-key")
+
+        -- Telescope keymaps with which-key descriptions
+        vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find Files" })
+        vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find Git Files" })
         vim.keymap.set('n', '<leader>pws', function()
             local word = vim.fn.expand("<cword>")
             builtin.grep_string({ search = word })
-        end)
+        end, { desc = "Grep String under Cursor Word" })
         vim.keymap.set('n', '<leader>pWs', function()
             local word = vim.fn.expand("<cWORD>")
             builtin.grep_string({ search = word })
-        end)
+        end, { desc = "Grep String under Cursor WORD" })
         vim.keymap.set('n', '<leader>ps', function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
-        end)
-        vim.keymap.set('n', '<leader>vh', builtin.help_tags, {})
-        vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find todos" })
+        end, { desc = "Grep String" })
+        vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help Tags" })
+        vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find Todos" })
+
+        -- Register which-key groups for <leader>p and <leader>f
+        --[[ wk.register({
+            p = {
+                name = "Telescope", -- Group name for <leader>p
+                f = "Find Files",
+                w = {
+                    name = "Grep Word",
+                    s = "Grep under cursor (word)",
+                    W = "Grep under cursor (WORD)"
+                },
+                s = "Grep String",
+            },
+            f = {
+                name = "Find",
+                t = "Find Todos"
+            },
+            v = {
+                h = "Help Tags"
+            }
+        }, { prefix = "<leader>" }) ]]
     end
 }
