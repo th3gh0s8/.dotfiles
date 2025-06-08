@@ -4,39 +4,20 @@ return {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-        "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp",
+        "saghen/blink.cmp",
         "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
+        "rafamadriz/friendly-snippets",
         "j-hui/fidget.nvim",
-        "rafamadriz/friendly-snippets", -- useful snippets
         "onsails/lspkind.nvim",
         { "antosha417/nvim-lsp-file-operations", config = true },
-        -- { "folke/neodev.nvim",                   opts = {} }, -- vs-code like pictograms
+        -- Add any other LSP-related plugins you use here
     },
-
     config = function()
-        local cmp = require('cmp')
-        -- import lspconfig plugin
         local lspconfig = require("lspconfig")
-
-        -- import mason_lspconfig plugin
         local mason_lspconfig = require("mason-lspconfig")
-
         local mason_tool_installer = require("mason-tool-installer")
-
-        -- import cmp-nvim-lsp plugin
-        local cmp_lsp = require("cmp_nvim_lsp")
         local lspkind = require("lspkind")
-        local capabilities = vim.tbl_deep_extend(
-            "force",
-            {},
-            vim.lsp.protocol.make_client_capabilities(),
-            cmp_lsp.default_capabilities())
-
+        local capabilities = require('blink.cmp').get_lsp_capabilities()
         require("fidget").setup({})
         require("mason").setup()
         require("mason-lspconfig").setup({
@@ -55,17 +36,18 @@ return {
                 "pyright",
             },
             handlers = {
-                function(server_name) -- default handler (optional)
+                function(server_name)
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
                 end,
 
                 zls = function()
-                    local lspconfig = require("lspconfig")
                     lspconfig.zls.setup({
-                        root_dir = lspconfig.util.root_pattern(".git", "build.zig", "zls.json", "mvnw", "gradlew",
-                            "pom.xml", "build.gradle"),
+                         capabilities = capabilities,
+                        root_dir = lspconfig.util.root_pattern(
+                            ".git", "build.zig", "zls.json",
+                            "mvnw", "gradlew", "pom.xml", "build.gradle"),
                         settings = {
                             zls = {
                                 enable_inlay_hints = true,
@@ -78,9 +60,8 @@ return {
                     vim.g.zig_fmt_autosave = 0
                 end,
                 ["lua_ls"] = function()
-                    local lspconfig = require("lspconfig")
                     lspconfig.lua_ls.setup {
-                        capabilities = capabilities,
+                         capabilities = capabilities,
                         settings = {
                             Lua = {
                                 runtime = { version = "Lua 5.1" },
@@ -91,10 +72,9 @@ return {
                         }
                     }
                 end,
-
-                -- Java language server handler (jdtls)
                 jdtls = function()
                     lspconfig.jdtls.setup({
+                         capabilities = capabilities,
                         root_dir = lspconfig.util.root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
                         settings = {
                             java = {
@@ -105,41 +85,44 @@ return {
                                 },
                             },
                         },
-                        capabilities = capabilities,
                     })
                 end,
             }
         })
 
-        local cmp_select = { behavior = cmp.SelectBehavior.Select }
+        vim.api.nvim_create_autocmd('LspAttach', {
+            callback = function(args)
+                local c = vim.lsp.get_client_by_id(args.data.client_id)
+                if not c then return end
+                vim.api.nvim_create_autocmd('BufWritePre', {
+                    buffer = args.buf,
+                    callback = function()
+                        vim.lsp.buf.format({ bufnr = args.buf, id = c.id })
+                    end,
+                })
+            end,
+        })
 
-        cmp.setup({
-            completion = {
-                completeopt = "menu,menuone,preview,noselect",
-            },
+        -- Blink.cmp setup (uses luasnip for snippets and friendly-snippets for snippet collection)
+        require("blink.cmp").setup({
             snippet = {
                 expand = function(args)
-                    require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+                    require("luasnip").lsp_expand(args.body)
                 end,
             },
-            mapping = cmp.mapping.preset.insert({
-                ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-                ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-                ['<C-y>'] = cmp.mapping.confirm({ select = true }),
-                ["<C-Space>"] = cmp.mapping.complete(),
-            }),
-            sources = cmp.config.sources({
-                { name = 'nvim_lsp' },
-                { name = 'luasnip' }, -- For luasnip users.
-                { name = "path" },
-            }, {
-                { name = 'buffer' },
-            })
+            keymap = { preset = 'default' },
+            appearance = {
+                use_nvim_cmp_as_default = false,
+                nerd_font_variant = 'mono'
+            },
+            signature = { enabled = true },
+            -- Disable autocompletion popup if you want manual only:
+            -- completion = { autocomplete = false },
+            -- Add more blink.cmp options here as needed
         })
 
         vim.diagnostic.config({
-            -- update_in_insert = true,
-            virtual_text = true, -- or false if you prefer popups only
+            virtual_text = true,
             signs = true,
             underline = true,
             update_in_insert = false,
@@ -152,25 +135,14 @@ return {
                 header = "",
                 prefix = "",
             },
-            -- configure lspkind for vs-code like pictograms in completion menu
-            formatting = {
-                format = lspkind.cmp_format({
-                    maxwidth = 50,
-                    ellipsis_char = "...",
-                }),
-            },
         })
         mason_tool_installer.setup({
             ensure_installed = {
-                "prettier", -- prettier formatter
-                "stylua",   -- lua formatter
-                "isort",    -- python formatter
-                "black",    -- python formatter
+                "prettier",
+                "stylua",
+                "isort",
+                "black",
             },
         })
-        -- require('lspconfig').jdtls.setup {
-        --     cmd = { 'jdtls' },
-        --     root_dir = require('lspconfig').util.root_pattern('.git', 'mvnw', 'gradlew', 'pom.xml', 'build.gradle'),
-        -- }
     end
 }

@@ -6,7 +6,10 @@ return {
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
         "nvim-tree/nvim-web-devicons",
         "folke/todo-comments.nvim",
-        "folke/which-key.nvim",  -- Make sure which-key is installed
+        "folke/which-key.nvim", -- Make sure which-key is installed
+    },
+    extensions = {
+        fzf = {}
     },
     config = function()
         local telescope = require("telescope")
@@ -19,7 +22,7 @@ return {
                     i = {
                         ["<C-k>"] = actions.move_selection_previous, -- move to prev result
                         ["<C-j>"] = actions.move_selection_next,     -- move to next result
-                        ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+                        -- ["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
                     },
                 },
             },
@@ -31,6 +34,7 @@ return {
         -- local wk = require("which-key")
 
         -- Telescope keymaps with which-key descriptions
+        vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = "Find Help!" })
         vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find Files" })
         vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Find Git Files" })
         vim.keymap.set('n', '<leader>pws', function()
@@ -47,6 +51,11 @@ return {
         vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help Tags" })
         vim.keymap.set("n", "<leader>ft", "<cmd>TodoTelescope<cr>", { desc = "Find Todos" })
 
+        vim.keymap.set("n", "<leader>ed", function()
+            builtin.find_files {
+                cwd = vim.fn.stdpath("config")
+            }
+        end, { desc = "Find files in Neovim config" })
         -- Register which-key groups for <leader>p and <leader>f
         --[[ wk.register({
             p = {
@@ -67,5 +76,7 @@ return {
                 h = "Help Tags"
             }
         }, { prefix = "<leader>" }) ]]
+
+        require "config.telescope.multigrep".setup()
     end
 }
