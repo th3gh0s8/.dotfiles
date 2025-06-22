@@ -212,3 +212,15 @@ set -gx PATH $HOME/go/bin: $PATH;
 
 
 thefuck --alias | source
+
+zoxide init fish | source
+
+alias cd 'z'
+alias ping 'mtr'
+alias df 'duf'
+alias burn 'caligula burn'
+
+set -x VULKAN_SDK ~/vulkan/1.4.313.0/x86_64
+set -x PATH $VULKAN_SDK/bin $PATH
+set -x LD_LIBRARY_PATH $VULKAN_SDK/lib $LD_LIBRARY_PATH
+set -x VK_ADD_LAYER_PATH $VULKAN_SDK/share/vulkan/explicit_layer.d
