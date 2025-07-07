@@ -1,0 +1,3 @@
+[ -f ~/.Xresources ] && xrdb -merge ~/.Xresources
+setxkbmap -option caps:escape_shifted_capslock
+

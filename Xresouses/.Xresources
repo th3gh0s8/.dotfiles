@@ -1,0 +1,85 @@
+! ─── Font Settings ─────────────────────────────────────────────────────────
+XTerm*faceName: FiraCode Nerd Font
+XTerm*faceSize: 10
+XTerm*renderFont: true
+XTerm*utf8: 1
+XTerm*locale: true
+XTerm*utf8Title: true
+
+! ─── Cursor Settings ──────────────────────────────────────────────────────
+XTerm*cursorColor: #ff79c6
+XTerm*cursorBlink: true
+
+! ─── Terminal Type and Input ──────────────────────────────────────────────
+XTerm*termName: xterm-256color
+XTerm*eightBitInput: false
+XTerm*metaSendsEscape: true
+
+! ─── Scrollbar ────────────────────────────────────────────────────────────
+XTerm*scrollBar: false
+XTerm*rightScrollBar: true
+XTerm*scrollBar_floating: true
+
+! ─── Window Title ─────────────────────────────────────────────────────────
+XTerm*titleBar: true
+XTerm*title: GhostTerm
+XTerm*iconName: GhostTerm
+
+! ─── Dracula Color Scheme ─────────────────────────────────────────────────
+XTerm*background: #282a36
+XTerm*foreground: #f8f8f2
+XTerm*color0:   #000000
+XTerm*color1:   #ff5555
+XTerm*color2:   #50fa7b
+XTerm*color3:   #f1fa8c
+XTerm*color4:   #bd93f9
+XTerm*color5:   #ff79c6
+XTerm*color6:   #8be9fd
+XTerm*color7:   #bbbbbb
+XTerm*color8:   #44475a
+XTerm*color9:   #ff5555
+XTerm*color10:  #50fa7b
+XTerm*color11:  #f1fa8c
+XTerm*color12:  #bd93f9
+XTerm*color13:  #ff79c6
+XTerm*color14:  #8be9fd
+XTerm*color15:  #ffffff
+
+
+! --- UXTerm Appearance ---
+UXTerm*faceName: JetBrainsMono Nerd Font
+UXTerm*faceSize: 11
+
+UXTerm*background: #1e1e2e
+UXTerm*foreground: #f8f8f2
+UXTerm*cursorColor: #ff79c6
+UXTerm*pointerColorBackground: #44475a
+UXTerm*pointerColorForeground: #ffffff
+
+UXTerm*scrollBar: false
+UXTerm*saveLines: 10000
+UXTerm*internalBorder: 10
+
+! --- UTF-8 and Input ---
+UXTerm*utf8: 1
+UXTerm*locale: true
+UXTerm*eightBitInput: false
+
+! --- Colors (Dracula-style) ---
+UXTerm*color0:  #282a36
+UXTerm*color1:  #ff5555
+UXTerm*color2:  #50fa7b
+UXTerm*color3:  #f1fa8c
+UXTerm*color4:  #bd93f9
+UXTerm*color5:  #ff79c6
+UXTerm*color6:  #8be9fd
+UXTerm*color7:  #f8f8f2
+UXTerm*color8:  #6272a4
+UXTerm*color9:  #ff6e6e
+UXTerm*color10: #69ff94
+UXTerm*color11: #ffffa5
+UXTerm*color12: #d6acff
+UXTerm*color13: #ff92df
+UXTerm*color14: #a4ffff
+UXTerm*color15: #ffffff
+
