@@ -27,8 +27,9 @@ return {
                 },
             },
         })
-        telescope.load_extension("fzf")
-        telescope.load_extension("todo-comments")
+        -- Load extensions safely
+        pcall(telescope.load_extension, "fzf")
+        pcall(telescope.load_extension, "todo-comments")
 
         local builtin = require('telescope.builtin')
         -- local wk = require("which-key")
