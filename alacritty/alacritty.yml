@@ -1,0 +1,55 @@
+# Alacritty configuration for Windows + BigBlueTermPlus Nerd Font
+
+# Font configuration
+font:
+  normal:
+    family: "BigBlueTerm437 Nerd Font Mono"
+    style: Regular
+  size: 12.0
+
+# Colorscheme (Gruvbox Dark)
+colors:
+  primary:
+    background: '0x1e1e2e'
+    foreground: '0xcdd6f4'
+  cursor:
+    text: '0x1e1e2e'
+    cursor: '0xcdd6f4'
+  selection:
+    text: '0x1e1e2e'
+    background: '0xcdd6f4'
+
+# Cursor style
+cursor:
+  style: Beam
+  unfocused_hollow: true
+
+# Scrolling
+scrolling:
+  history: 10000
+  multiplier: 3
+
+# Mouse support
+mouse:
+  enabled: true
+  hide_when_typing: false
+
+# Shell / Startup
+# Change `powershell.exe` to `wsl.exe` for Linux commands
+shell:
+  program: powershell.exe
+  args:
+    - "-NoLogo"
+
+# Window settings
+window:
+  padding:
+    x: 5
+    y: 5
+  dynamic_title: true
+
+# Key bindings
+key_bindings:
+  - { key: V, mods: Control|Shift, action: Paste }
+  - { key: C, mods: Control|Shift, action: Copy }
+  - { key: T, mods: Control|Shift, action: SpawnNewInstance }

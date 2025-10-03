@@ -1,0 +1,64 @@
+# Alacritty configuration for Windows (TOML) + BigBlueTermPlus Nerd Font Propo
+
+# Font configuration
+[font]
+normal.family = "BigBlueTermPlus Nerd Font Propo"
+normal.style = "Regular"
+size = 12.0
+
+# Colorscheme (Gruvbox Dark)
+[colors.primary]
+background = "0x1e1e2e"
+foreground = "0xcdd6f4"
+
+[colors.cursor]
+text = "0x1e1e2e"
+cursor = "0xcdd6f4"
+
+[colors.selection]
+text = "0x1e1e2e"
+background = "0xcdd6f4"
+
+# Cursor style
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+
+# Scrolling
+[scrolling]
+history = 10000
+multiplier = 3
+
+# Mouse support
+[mouse]
+enabled = true
+hide_when_typing = false
+
+# Shell / Startup
+[shell]
+program = "powershell.exe"
+args = ["-NoLogo"] # change to ["wsl.exe", "-d", "Ubuntu"] for WSL
+
+# Window settings
+[window]
+padding.x = 5
+padding.y = 5
+dynamic_title = true
+
+# Key bindings
+[[key_bindings]]
+key = "V"
+mods = "Control|Shift"
+action = "Paste"
+
+[[key_bindings]]
+key = "C"
+mods = "Control|Shift"
+action = "Copy"
+
+[[key_bindings]]
+key = "T"
+mods = "Control|Shift"
+action = "SpawnNewInstance"
+
+# Optional: Add more key bindings for splits or tabs if desired
