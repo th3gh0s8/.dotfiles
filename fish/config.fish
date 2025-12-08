@@ -224,3 +224,10 @@ set -x VULKAN_SDK ~/vulkan/1.4.313.0/x86_64
 set -x PATH $VULKAN_SDK/bin $PATH
 set -x LD_LIBRARY_PATH $VULKAN_SDK/lib $LD_LIBRARY_PATH
 set -x VK_ADD_LAYER_PATH $VULKAN_SDK/share/vulkan/explicit_layer.d
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+alias xvim="env NVIM_APPNAME=ghost_config nvim"
+
