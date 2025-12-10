@@ -1,0 +1,3 @@
+[submodule "themes/catppuccin"]
+	path = themes/catppuccin
+	url = https://github.com/catppuccin/ghostty
