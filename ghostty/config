@@ -41,7 +41,7 @@
 # # which is explained in the docs for that config option.
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
-theme = catppuccin-mocha
+#theme = catppuccin-mocha
 # theme = GruvboxDark
 # font-family = Meslo LGS Nerd Font Mono
 # font-family = CaskaydiaMono Nerd Font
@@ -65,6 +65,7 @@ keybind = ctrl+alt+j=goto_split:down
 keybind = ctrl+alt+k=goto_split:up
 keybind = ctrl+alt+l=goto_split:right
 
+keybind = ctrl+shift+x=close_surface
 
 keybind = alt+k=scroll_page_up
 keybind = alt+j=scroll_page_down
