@@ -1,3 +1,11 @@
+#     _   _      _____       _     _____       _____
+#    | | | |    |____ |     | |   |  _  |     |  _  |
+#    | |_| |__      / / __ _| |__ | |/' | ___  \ V /
+#    | __| '_ \     \ \/ _` | '_ \|  /| |/ __| / _ \
+#    | |_| | | |.___/ / (_| | | | \ |_/ /\__ \| |_| |
+#     \__|_| |_|\____/ \__, |_| |_|\___/ |___/\_____/
+#                       __/ |
+#                      |___/
 ## Set values
 # Hide welcome message & ensure we are reporting fish as shell
 set fish_greeting
@@ -232,3 +240,6 @@ set --export PATH $BUN_INSTALL/bin $PATH
 
 alias xvim="env NVIM_APPNAME=ghost_config nvim"
 
+#set -gx PATH  /home/gh0s8/Documents/zig: $PATH;
+set -gx PATH $PATH /home/gh0s8/Documents/zig;
+#set -gx PATH  /home/gh0s8/Documents/zls: $PATH;
