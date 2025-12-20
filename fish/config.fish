@@ -240,6 +240,9 @@ set --export PATH $BUN_INSTALL/bin $PATH
 
 alias xvim="env NVIM_APPNAME=ghost_config nvim"
 
-#set -gx PATH  /home/gh0s8/Documents/zig: $PATH;
-set -gx PATH $PATH /home/gh0s8/Documents/zig;
-#set -gx PATH  /home/gh0s8/Documents/zls: $PATH;
+set -gx PATH  /home/gh0s8/Documents/zig: $PATH;
+# set -gx PATH $PATH /home/gh0s8/Documents/zig;
+# set -gx PATH  /home/gh0s8/Documents/zls: $PATH;
+
+set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+
