@@ -196,6 +196,7 @@ set -gx PATH /home/linuxbrew/.linuxbrew/bin: $PATH;
 #set -gx PATH $HOME/Downloads/1.4.313.0: $PATH;
 
 colorscript random
+pokemon-colorscripts -r
 
 alias starwars="telnet towel.blinkenlights.nl" # Play starwars
 
