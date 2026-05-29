@@ -28,6 +28,45 @@ end
 set -U __done_min_cmd_duration 10000
 set -U __done_notification_urgency_level low
 
+set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/gh0s8/.ghcup/bin $PATH; # ghcup-env
+
+#set -gx PATH $HOME/.config/emacs/bin $PATH;
+
+set -gx PATH $HOME/.emacs.d/bin: $PATH;
+
+set -gx PATH /home/linuxbrew/.linuxbrew/bin: $PATH;
+
+#set -gx PATH $HOME/Downloads/1.4.313.0: $PATH;
+
+set -gx EDITOR nvim
+set -gx VISUAL nvim
+
+set -gx CC clang
+
+set -gx PATH $HOME/go/bin: $PATH;
+
+
+set -x VULKAN_SDK ~/vulkan/1.4.313.0/x86_64
+set -x PATH $VULKAN_SDK/bin $PATH
+set -x LD_LIBRARY_PATH $VULKAN_SDK/lib $LD_LIBRARY_PATH
+set -x VK_ADD_LAYER_PATH $VULKAN_SDK/share/vulkan/explicit_layer.d
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
+
+set -gx PATH  /home/gh0s8/Documents/zig: $PATH;
+# set -gx PATH $PATH /home/gh0s8/Documents/zig;
+# set -gx PATH  /home/gh0s8/Documents/zls: $PATH;
+
+set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+
+set -Ux CHROME_EXECUTABLE /usr/bin/google-chrome-stable
+
+set -gx PATH  $HOME/.pub-cache/bin: $PATH;
+
+set -gx PATH  $HOME/.local/share/pnpm/bin: $PATH;
+
 ## Environment setup
 # Apply .profile: use this to put fish compatible .profile stuff in
 if test -f ~/.fish_profile
@@ -78,6 +117,17 @@ function __history_previous_command_arguments
   end
 end
 
+# Auto-load .env if it exists in current directory
+function __load_env_on_cd --on-variable PWD
+    if test -f .env
+        for line in (cat .env | grep -v '^\s*#' | grep '=')
+            set key (echo $line | cut -d= -f1)
+            set val (echo $line | cut -d= -f2- | string trim --chars='"' | string trim --chars="'")
+            set -x $key $val
+        end
+    end
+end
+
 if [ "$fish_key_bindings" = fish_vi_key_bindings ];
   bind -Minsert ! __history_previous_command
   bind -Minsert '$' __history_previous_command_arguments
@@ -116,6 +166,16 @@ function cleanup
         end
     end
 end
+
+function y
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		builtin cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
+end
+
 
 ## Useful aliases
 
@@ -184,66 +244,34 @@ alias rip 'expac --timefmt="%Y-%m-%d %T" "%l\t%n %v" | sort | tail -200 | nl'
 #    fastfetch --config dr460nized.jsonc
 # end
 
-
-set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin /home/gh0s8/.ghcup/bin $PATH; # ghcup-env
-
-#set -gx PATH $HOME/.config/emacs/bin $PATH;
-
-set -gx PATH $HOME/.emacs.d/bin: $PATH;
-
-set -gx PATH /home/linuxbrew/.linuxbrew/bin: $PATH;
-
-#set -gx PATH $HOME/Downloads/1.4.313.0: $PATH;
-
-colorscript random
-pokemon-colorscripts -r
-
 alias starwars="telnet towel.blinkenlights.nl" # Play starwars
-
-set -gx EDITOR nvim
-set -gx VISUAL nvim
-
-function y
-	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		builtin cd -- "$cwd"
-	end
-	rm -f -- "$tmp"
-end
-
 
 alias cat 'bat'
 alias grep 'rg'
-
-set -gx CC clang
-
-set -gx PATH $HOME/go/bin: $PATH;
-
-
-thefuck --alias | source
-
-zoxide init fish | source
 
 alias cd 'z'
 alias ping 'mtr'
 alias df 'duf'
 alias burn 'caligula burn'
 
-set -x VULKAN_SDK ~/vulkan/1.4.313.0/x86_64
-set -x PATH $VULKAN_SDK/bin $PATH
-set -x LD_LIBRARY_PATH $VULKAN_SDK/lib $LD_LIBRARY_PATH
-set -x VK_ADD_LAYER_PATH $VULKAN_SDK/share/vulkan/explicit_layer.d
-
-# bun
-set --export BUN_INSTALL "$HOME/.bun"
-set --export PATH $BUN_INSTALL/bin $PATH
 
 alias xvim="env NVIM_APPNAME=ghost_config nvim"
 
-set -gx PATH  /home/gh0s8/Documents/zig: $PATH;
-# set -gx PATH $PATH /home/gh0s8/Documents/zig;
-# set -gx PATH  /home/gh0s8/Documents/zls: $PATH;
+colorscript random
+pokemon-colorscripts -r
 
-set -x SSH_AUTH_SOCK $XDG_RUNTIME_DIR/ssh-agent.socket
+
+thefuck --alias | source
+
+zoxide init fish | source
+
+
+# kimi-code
+fish_add_path -g "/home/gh0s8/.kimi-code/bin"
+
+# opencode
+fish_add_path /home/gh0s8/.opencode/bin
+
+# nvm - use LTS Node by default
+nvm use --lts 2>/dev/null
 
